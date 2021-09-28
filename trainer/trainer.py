@@ -64,6 +64,7 @@ class Trainer(BaseTrainer):
             self.optimizer.step()
             if self.config['lr_scheduler']['type'] == 'WarmupPolyLR':
                 self.scheduler.step()
+
             # acc iou
             score_shrink_map = cal_text_score(preds[:, 0, :, :], batch['shrink_map'], batch['shrink_mask'], running_metric_text,
                                               thred=self.config['post_processing']['args']['thresh'])
@@ -116,6 +117,7 @@ class Trainer(BaseTrainer):
                     show_pred = torch.cat(show_pred)
                     show_pred = vutils.make_grid(show_pred.unsqueeze(1), nrow=cur_batch_size, normalize=False, padding=20, pad_value=1)
                     self.writer.add_image('TRAIN/preds', show_pred, self.global_step)
+ 
         return {'train_loss': train_loss / self.train_loader_len, 'lr': lr, 'time': time.time() - epoch_start,
                 'epoch': epoch}
 

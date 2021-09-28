@@ -6,7 +6,6 @@ from __future__ import print_function
 
 import argparse
 import os
-
 import anyconfig
 
 
@@ -69,7 +68,7 @@ if __name__ == '__main__':
     # sys.path.append(os.getcwd().split(project)[0] + project)
 
     from utils import parse_config
-
+    
     args = init_args()
     assert os.path.exists(args.config_file)
     config = anyconfig.load(open(args.config_file, 'rb'))
